@@ -3,7 +3,7 @@
 // Licensed under the MIT License <LICENSE or http://opensource.org/licenses/MIT>.
 // This file may not be copied, modified, or distributed except according to those terms.
 
-use num::FromPrimitive;
+use num_traits::FromPrimitive;
 
 pub type U7 = u8;
 pub type U14 = u16;
@@ -51,4 +51,3 @@ impl FromPrimitive for Channel {
         }
     }
 }
-

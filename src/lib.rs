@@ -5,21 +5,24 @@
 
 //! Midi types and traits for Rust
 
-extern crate num;
+#![no_std]
+
+extern crate heapless;
+extern crate num_traits;
 
 pub use types::{Channel, U7, U14};
 pub use Channel::{Ch1,  Ch2,  Ch3,  Ch4,  Ch5,  Ch6,  Ch7,  Ch8,
                   Ch9,  Ch10, Ch11, Ch12, Ch13, Ch14, Ch15, Ch16};
 pub use raw_message::RawMessage;
 pub use RawMessage::{Status, StatusData, StatusDataData, Raw};
-pub use message::Message;
+pub use message::{Message, SysExData, MAX_SYSEX_DATA_LEN};
 pub use Message::{Start, TimingClock, Continue, Stop, ActiveSensing, SystemReset,
                   AllSoundOff, ResetAllControllers, LocalControlOff, LocalControlOn,
                   AllNotesOff, NoteOff,
                   ProgramChange, ControlChange, RPN7, RPN14, NRPN7, NRPN14,
                   SysEx, NoteOn, PitchBend, PolyphonicPressure, ChannelPressure};
 pub use manufacturer::Manufacturer;
-pub use to_raw_messages::ToRawMessages;
+pub use to_raw_messages::{CapacityError, RawMessages, ToRawMessages};
 
 pub mod constants;
 pub mod utils;
@@ -29,4 +32,3 @@ mod raw_message;
 mod message;
 mod manufacturer;
 mod to_raw_messages;
-

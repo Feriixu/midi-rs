@@ -40,7 +40,7 @@ pub fn status_byte(status: u8, channel: Channel) -> u8 {
 /// Seperate the status from the channel no.
 #[inline]
 pub fn from_status_byte(sb: u8) -> (u8, Channel) {
-    use num::FromPrimitive;
+    use num_traits::FromPrimitive;
     let status = (sb & 0b11110000) >> 4;
     let channel = FromPrimitive::from_u8(sb & 0b00001111).unwrap();
     (status, channel)
@@ -131,7 +131,7 @@ mod tests {
 
     #[test]
     fn test_all_status_byte() {
-        use num::FromPrimitive;
+        use num_traits::FromPrimitive;
         for status in 0..16 {
             for ch in 0..16 {
                 let channel = FromPrimitive::from_u8(ch).unwrap();
@@ -141,4 +141,3 @@ mod tests {
         }
     }
 }
-

@@ -3,8 +3,16 @@
 // Licensed under the MIT License <LICENSE or http://opensource.org/licenses/MIT>.
 // This file may not be copied, modified, or distributed except according to those terms.
 
+use heapless::Vec;
+
 use types::{U7, U14, Channel};
 use manufacturer::Manufacturer;
+
+/// Maximum number of data bytes stored by a System Exclusive message.
+pub const MAX_SYSEX_DATA_LEN: usize = 1024;
+
+/// Fixed-capacity storage for System Exclusive message data.
+pub type SysExData = Vec<U7, MAX_SYSEX_DATA_LEN>;
 
 /// Defines the various Midi messages that can be sent
 ///
@@ -107,7 +115,7 @@ pub enum Message {
     /// creating additional MIDI Specification messages.
     /// The first argument indicates the manufacturer.
     /// The second argument contains the data (without the `F0` header, or `F7` terminator).
-    SysEx(Manufacturer, Vec<U7>),
+    SysEx(Manufacturer, SysExData),
 
     /// Note On event. This message is sent when a note is depressed (start).
     /// The second argument is the key (note) number.
@@ -131,4 +139,3 @@ pub enum Message {
     /// The second argument is the pressure value.
     ChannelPressure(Channel, U7)
 }
-
